@@ -7,43 +7,44 @@ $(document).ready(function(){
 	     elAddBtn = $("#addBtn"),
 	  elDeleteBtn = $("#deleteBtn"),
 
-	// testing controls    elActiveCtrl elInactiveCtrl elSelectCtrl
-	 elActiveCtrl = $("#activeCtrl"),
-   elInactiveCtrl = $("#inactiveCtrl"),
-	 elSelectCtrl = $("#selectCtrl"),
-
 	// stub item inputs
 	  newItemText = "", 
-	  newItemDesc = "",
+	  newItemDesc = "";
 
-	// itemArray => the index is the itemID, the value is: 1 for used, 0 for available. The last index should always be value of 0. Other preceeding indexes may also be 0. Stub function looks for first index with a value of 0 and uses that index as the next avail Item ID
-	    itemArray = [0];
+	// get item array
+	  var itemArray = getItemArray();
+	  var arrayLength = itemArray.length;
 
 	// event listeners
-		// click on Add Button
+		// Add Button onClick
 			elAddBtn.click(function(){ addItem(newItemText, newItemDesc); });
 
-		// click on Delete Button
+		// Delete Button onClick
 			elDeleteBtn.click(function(){ deleteItem(); });
 
-		// click on an Item... selecting it
-			$(".item").click(function(){ selectItem(); });
+		// an Item onClick to select it
+			$("div.facs-item").click(function(){ selectItem(); });
 
 		// ---------------------
 		// function control stubs
-			// click on Activate Control function
-				elActiveCtrl.click(function(){ buttonActive(); });
+			// Toggle Stub control onClick
+				$("#toggleStubs").click(function(){
+					$(".stub").toggleClass("hide");  //text("here");
+				 });
 
-			// click on Inactivate Control function
-				elInactiveCtrl.click(function(){ buttonDisable(); });
+			// Activate/Disable control of Delete Button onClick
+				$("#toggleDelBtn").click(function(){
+					console.log("toggled delete Btn"); 
+					$("#deleteBtn").toggleClass("hide");
+					$("#deleteBtn").toggleClass("facs-button-disabled");
+					$("#deleteBtn").toggleClass("facs-button-active");
+				 });
 
 			// click on Select Item function
-				elSelectCtrl.click(function(){ selectItem( 0 ); }); // 0 is the index of an Item ID of 1
+				$("#selectCtrl").click(function(){ selectItem( 0 ); }); // 0 is the index of an Item ID of 1
 		// ---------------------
 
 
-	console.log(elAddBtn);
-	console.log("itemArray " + itemArray);
 	console.log("Started");
 
 // new Item constructor
@@ -53,20 +54,27 @@ function item(id, text, desc) {
 	this.item_description = desc;
 }
 
+// get array of Items
+function getItemArray(){
+	var itemArray = $('#itemBox').get();
+    console.log("getItemArray " + itemArray);
+    return itemArray;
+}
+
 // toggle button class to active
 	function buttonActive() {
 		console.log("In function buttonActive");
 		elDeleteBtn.removeClass("facs-button-disabled"); 
 		elDeleteBtn.addClass("facs-button-active");
-		elDeleteBtn.hide();
+		elDeleteBtn.show();
 	}
 
 // toggle button class to disable
 	function buttonDisable() {
 		console.log("In function buttonDisable");
-		elDeleteBtn.show();
 		elDeleteBtn.removeClass("facs-button-active");
 		elDeleteBtn.addClass("facs-button-disabled");
+		elDeleteBtn.hide();
 	}
 
 // create an element for a new item
@@ -74,23 +82,53 @@ function item(id, text, desc) {
 		console.log("In function addItem");
 
 		// back-end would re-number the Item IDs by using any deleted/moved ID(s) in succession and return the newest ID # as 'result'
-        $.ajax({url: "test/save-new-item?Item_text=itemText&Item_description=itemDescription",
+        $.ajax({
+        	url: "test/save-new-item?Item_text=itemText&Item_description=itemDescription",
         	type: "GET",
-        	dataType: "JSON",
+        	username: "",
+        	password: "",
+        	timeout: 5000,
+
         	success: function(result){
             	// create new Item instance passing in the new item's ID which is held in result
-            	var newItem = new item(result, itemText, itemDesc);
-
-            	// code to append new item element
-            	$( "#itemBox" ).append( $( newItem ) );
+	            console.log("This is stubbed so, how can there be Ajax success?");
+   	        	var newItem = new item(result, itemText, itemDesc);
+   	        	// finish once there is proper back-end
         	},
         	error: function(xhr){
-	            alert("An error occured: " + xhr.status + " " + xhr.statusText);
+	            console.log("An error occured: " + xhr.status + " " + xhr.statusText);
+	        },
+	        complete: function(result){
+	        	buttonDisable();
+	        	result = 3;
+            	// append new item element
+            	var text = '<div class="facs-item">Item #' + result + '</div>';
+            	console.log("item text " + text);
+            	$( "#itemBox" ).append( text ).click(function(){ selectItem(); });
+            	console.log("Item array "+ $() );
 	        }
-    	});		
-		// stub for no DB is to find the next available ID
-		var nextID = itemArray.indexOf(0);
+    	});
+
 	}
+
+
+// after adding an item normalize
+    function resetSelected() {
+    	itemArray = getItemArray();
+      arrayLength = itemArray.length;
+
+        // update item #s
+        for (var i = 0; i < arrayLength; i++) {
+            // normalize class delete and add click listener to each item
+            $(itemArray[i]).removeClass('delete');
+            $(itemArray[i]).innerHTML = "";
+
+            $(itemArray[i]).click(function (e) {
+                $(this).addClass('delete');
+            });
+        }
+
+    }
 
 // delete an element that was deleted
 	function deleteItem(el) {
@@ -119,5 +157,29 @@ function item(id, text, desc) {
 		var elSelected = selectedID;
 		// elSelected.addClass("facs-item-selected");
 	}
+
+
+    // update item #
+
+      itemArray = getItemArray();
+    arrayLength = itemArray.length;
+
+    function setSelected(e) {
+            // onClick enable delete button
+            buttonActive();
+            resetSelected();
+            $(this).addClass('delete');
+
+        }
+
+    for (var i = 0; i < arrayLength; i++) {
+        // reset delete class and add click listener to ea. item
+
+        $(itemArray[i]).innerHTML = "";
+
+        var labelCount = i + 1;
+        itemArray[i].innerHTML = "Item #" + labelCount;
+        $(itemArray[i]).click( setSelected() );
+    }
 
 });
