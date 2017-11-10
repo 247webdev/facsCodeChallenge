@@ -1,43 +1,66 @@
-// jQuery to support test.phtml
-function msg(){  
- alert("Hello FACS");  
-}
+$(document).ready(function(){
 
-/*
-CSS : assume that there is a global css file that defines the following classes for use.
-1. facs-button-active
-2. facs-button-disabled
-3. facs-box
-4. facs-item
-5. facs-item-selected
-*/
+// init environment
+	// element shortcuts include    elItemBox elDeleteBox elAddBtn elDeleteBtn
+	var elItemBox = $("#itemBox"),
+	  elDeleteBox = $("#deleteBox"),
+	     elAddBtn = $("#addBtn"),
+	  elDeleteBtn = $("#deleteBtn"),
 
-function buttonActive() {
-  // set delete button to active
+	// itemArray => the index is the itemID, the value is: 1 for used, 0 for available. The last index should always be value of 0. Other preceeding indexes may also be 0. Stub function looks for first index with a value of 0 and uses that index as the next avail Item ID
+	    itemArray = [0];
 
-}
+	// event listeners
+		// Add Button click
+			elDeleteBtn.click(function(){
+				deleteItem();
+			});
+		// Delete Button click
+			elAddBtn.click(function(){
+				addItem();
+			});
 
-function buttonDisable() {
-  // set delete button to disable
-  
-}
+		// Item selected click
+			$(".item").click(function(){
+				//addItem();
+			});
 
-function addItem() {
-  // create an element for a new item
-  
-}
 
-function removeItem() {
-  // remove an element that was deleted
-  
-}
+	console.log(elAddBtn);
+	console.log("itemArray " + itemArray);
+	console.log("Started");
 
-function selectedItem() {
-  // reset any selected item for when user changes the selected item
-  // set the selected item and call buttonActive
-}
+// toggle button class to active
+	function buttonActive() {
+		console.log("buttonActive");
+		elDeleteBtn.removeClass("facs-button-disabled"); 
+		elDeleteBtn.addClass("facs-button-active");
+	}
 
-function unselectedItem() {
-  // is this possible?
-  
-}
+// toggle button class to disable
+	function buttonDisable() {
+		console.log("buttonDisable");
+		elDeleteBtn.removeClass("facs-button-active");
+		// elDeleteBtn.addClass("facs-button-disabled");
+	}
+
+// create an element for a new item
+	function addItem() {
+		console.log("addItem");
+		// stub for no DB is to find the next available ID
+		var nextID = itemArray.indexOf(0);
+	}
+
+// delete an element that was deleted
+	function deleteItem(el) {
+		console.log("deleteItem");
+		console.log("Delete item " + el );  
+	}
+
+// set the selected item and call buttonActive
+	function selectedItem() {
+		console.log("selectedItem");
+		// reset any selected item for when user changes the selected item
+	}
+
+});

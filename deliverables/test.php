@@ -1,28 +1,52 @@
-<!-- PHP file that contains a class that defines methods to write to a postgres database (see assumptions). -->
+<?PHP
+// PHP file that contains a class that defines methods to write to a postgres database (see assumptions).
 
-<!-- PHP model
-  step 4 Tie in the work from above to the back end using a combination of php calls in the phtml file and Ajax calls in the javascript file to correctly reflect the state of the screen for when the user exits the page and then comes back to it later -->
+//    /**
+//     * controller
+//     * Laravel routes respond to calls
+//     *
+//     * 1. /test/save-new-item
+//        a. Parameters   received
+//        i. Item_text
+//        ii. Item_description
+//        b. Returned   data i. Item_id
+//        2. /test/update-user-item
+//        a. Parameters   received
+//        i. Item_id ii. User_id
+//        iii. Item_status
+//        b. Returned   data
+//        i. Update   result
+//     */
 
-<!--  Tables:
-t_user ->
-  id,
-  name, 
-  email (assume data is available in $_SESSION[‘user’])
 
-t_item ->
-  id,
-  text,
-  description
 
-r_item_user ->
-  user_id, 
-  item_id, 
-  status
--->
 
-<!--  BackEnd :
-1. Assume there is a Laravel route and controller that takes the urls above then calls your methods in the class described in step 4.
-2. Assume there is a DB configured (example: $query = DB::select( select * from t_user);
-3. Your test.php should use the class name TestClass
-4. Assume that a user has logged in and you have their user ID available in a PHP session variable.
--->
+    // Minimial security here, provided by Laravel later
+    // just load class and test tht one methods responds
+
+  if( file_get_contents( "php://input" )){
+
+       $data = file_get_contents( "php://input" ); //$data is now the string '[1,2,3]';
+       $data = json_decode( $data ); //$data is now a php array array(1,2,3)
+
+        // sanitize Data
+
+
+        // set new Class interfaces
+        // Load the class once &b auto loads interfaces
+        require_once('testClass.php');
+        $t = new TestClass();
+
+        //Loaded class and call to sanitizeDAO works
+        $validateUser= $t->sanitizeDAO("TESTTESETET");
+        echo(json_encode($validateUser));
+
+
+    } else {
+
+        echo(json_encode("login"));
+    }
+
+
+
+?>

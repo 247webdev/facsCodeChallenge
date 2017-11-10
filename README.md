@@ -15,11 +15,17 @@ November 9, 2017
 * The delete button is disabled until an item box is selected.
 * The user now can keep clicking the add button and keep adding item boxes to the container or they can click on an item box and click the delete button.
 
+
 ###STEP 3
 * Once the user has deleted an item a new container is made and the deleted item is moved to the new box.
 * The item in the deleted box contains the same text as before with the text “deleted” concatenated to it.
 * The user can now add more items to the first container or they can delete items and have them moved to the second big box.
 * If the first box runs out of items then the delete button is hidden, if there are items in the first box but none are selected the delete is visible but disabled.
+
+
+###STEP 4
+PHP model
+* Tie in the work from above to the back end using a combination of php calls in the phtml file and Ajax calls in the javascript file to correctly reflect the state of the screen for when the user exits the page and then comes back to it later
 
 
 ###CSS
@@ -49,3 +55,28 @@ Assume the following urls can be used for ajax calls.
 		* iii. Item_status
 	b. Returned data
 		* i. Update result
+
+
+###Tables:
+* t_user ->
+  id,
+  name, 
+  email (assume data is available in $_SESSION[‘user’])
+
+* t_item ->
+  id,
+  text,
+  description
+
+* r_item_user ->
+  user_id, 
+  item_id, 
+  status
+
+
+###BackEnd
+1. Assume there is a Laravel route and controller that takes the urls above then calls your methods in the class described in step 4.
+2. Assume there is a DB configured (example: $query = DB::select( select * from t_user);
+3. Your test.php should use the class name TestClass
+4. Assume that a user has logged in and you have their user ID available in a PHP session variable.
+
