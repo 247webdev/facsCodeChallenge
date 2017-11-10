@@ -6,36 +6,58 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="test.js"></script>
+	<link rel="stylesheet" href="reset.css">
 	<link rel="stylesheet" href="test.css">
 </head>
 
-<body> <!--  onload="facsFunction();"> -->
+<body>
+<!-- stub controll functions -->
+	<div id="cntrBtnGroup">
+		<button id="selectCtrl">Select</button>
+		<button id="activeCtrl">Activate</button>
+		<button id="inactiveCtrl">Disable</button>
+	</div>
+<!-- END stub controll functions -->
 
-	<!-- added item container -->
-	<div class="container">
+	<div id="container">
 
-		<div id="itemBox" class="facs-box">
-			<!-- dynamically place added item elements here -->
-			<div class="facs-item facs-item-selected">Item #1</div>
-			<div class="facs-item">Item #1</div>
-			<div class="facs-item">Item #1</div>
+<!-- added item container -->
+		<div class="container">
+
+			<div id="itemBox" class="facs-box">
+				<!-- dynamically place added item elements here -->
+				<div class="facs-item facs-item-selected">Item #1</div>
+				<div class="facs-item">Item #2</div>
+				<div class="facs-item">Item #3</div>
+				<div class="facs-item">Item #4</div>
+				<div class="facs-item">Item #5</div>
+				<div class="facs-item">Item #6</div>
+				<div class="facs-item">Item #7</div>
+				<div class="facs-item">Item #8</div>
+				<div class="facs-item">Item #9</div>
+				<div class="facs-item">Item #10</div>
+				<div class="facs-item">Item #11</div>
+				<div class="facs-item">Item #12</div>
+				<div class="facs-item">Item #13</div>
+				<div class="facs-item">Item #14</div>
+			</div>
+
+			<button id="addBtn">ADD Item</button>
+			<button id="deleteBtn" class="facs-button-active">Delete Item</button>
+
 		</div>
 
-		<button id="addBtn">ADD Item</button>
-		<button id="deleteBtn" class="facs-button-active">Delete Item</button>
 
-	</div>
+<!-- deleted item container -->
+		<div class="container">
 
+			<div id="deleteBox" class="facs-box facs-box-disabled">
+				<!-- dynamically place deleted item element here -->
+			</div>
 
-	<!-- deleted item container -->
-	<div class="container">
-
-		<div id="deleteBox" class="facs-box facs-box-disabled">
-			<!-- dynamically place deleted item element here -->
 		</div>
 
 	</div>
-
 </body>
 
 </html>

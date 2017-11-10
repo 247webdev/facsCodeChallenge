@@ -57,11 +57,13 @@ button {
 }
 
 .facs-button-active {
-  background-color: #ff6666;
+  background-color: #cc0000;
+  display: block;
 }
 
 .facs-button-disabled {
   display: none;
+  /* use jQuery show / hide methods vs display none */
 }
 
 .facs-item {
@@ -84,4 +86,10 @@ button {
      -moz-box-shadow: 0px 0px 2px 0px black;
       -ms-box-shadow: 0px 0px 2px 0px black;
        -o-box-shadow: 0px 0px 1px 0px black;
+}
+
+#cntrBtnGroup {
+    position: absolute;
+    top: 10px;
+    left: 10px;
 }
