@@ -1,43 +1,59 @@
 /*stub style sheet*/
 
-/*
-CSS  Assume that there is a global css file that defines the following classes for use.
-  facs-button-active
-  facs-button-disabled
-  facs-box
-  facs-item
-  facs-item-selected
-*/
+* {
+        position: relative;
+            font: 18px arial, helvetica, sans-serif;
+     font-weight: bold;
+           color: #e2e2e2;
+    font-variant: small-caps;
+  letter-spacing: 0.08em;
+     text-shadow: 2px  2px 3px #252525, /* drop blur */
+                  /* font stroke workaround example to not use webkit  */
+                 -1px -1px 0   #252525,
+                  1px -1px 0   #252525,
+                 -1px  1px 0   #252525,
+                  1px  1px 0   #252525;
+}
 
 body {
-  background-color: rgb(230, 230, 230);
-  padding-top: 30px;
+    padding-top: 40px;
+    height: 96vh;
+  align-content: center;
+     background: linear-gradient(135deg, #bacede 0%, #6f99ba 51%, #4b789b 75%);
+}
+
+/*outer container to allow centering*/
+#container {
+   width: 680px;
+  margin: 0 auto;
 }
 
 button {
-  width: 150px;
-  display: block; 
+          width: 150px;
+        display: block; 
   border-radius: 5px;
   margin-bottom: 7px;
 }
 
+/*the two UI containers containing the .facs-box div*/
 .container {
-  position: relative;
-  display: inline;
-  float: left;
-  margin-left: 35px;
+         display: inline-block;
+  vertical-align: top;
+     margin-left: 35px;
 }
 
 .facs-box {
-  height: 350px;
-  width:  300px;
-
-  margin-bottom: 15px;
-  padding: 5px;
-
-  background-color:rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  box-shadow: 0px 0px 1px 2px #000099;
+          min-height: 250px;
+               width: 300px;
+       margin-bottom: 15px;
+             padding: 5px 5px 11px 11px;
+       border-radius: 2px;
+    background-color: rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0px 0px 1px 3px #202020;
+  -webkit-box-shadow: inset 0px 0px 1px 3px #202020;
+     -moz-box-shadow: inset 0px 0px 1px 3px #202020;
+      -ms-box-shadow: inset 0px 0px 1px 3px #202020;
+       -o-box-shadow: inset 0px 0px 1px 3px #202020;
 }
 
 .facs-button-active {
@@ -49,23 +65,23 @@ button {
 }
 
 .facs-item {
-  border: 1px solid black;
+            border: 1px solid black;
   background-color: #EEE;
-  height: 30px;
-  width:  200px;
-  display: block;
-  margin-top: 7px;
-  padding: 0px, 0px, 0px, 10px;
-  align-content: left;
+            height: 32px;
+             width: 200px;
+           display: block;
+        margin-top: 7px;
+           padding: 6px 0px 0px 10px;
+     align-content: left;
+    vertical-align: middle;
 }
 
 .facs-item-selected {
   /*margin-left: 15px;  consider this for UX to rollover transition this property*/
-  border: 3px solid #333;
-  background-color: rgba(0, 230, 115, 0.5);
-  box-shadow: 0 0 3px 3px #0066ff;
-  -webkit-box-shadow: 0 0 3px 1px #0066ff;
-  -moz-box-shadow: 0 0 3px 3px #0066ff;
-  -ms-box-shadow: 0 0 3px 3px #0066ff;
-  -o-box-shadow: 0 0 3px 3px #0066ff;
+    background-color: rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 2px 0px black;
+  -webkit-box-shadow: 0px 0px 2px 0px black;
+     -moz-box-shadow: 0px 0px 2px 0px black;
+      -ms-box-shadow: 0px 0px 2px 0px black;
+       -o-box-shadow: 0px 0px 1px 0px black;
 }
